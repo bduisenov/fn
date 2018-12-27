@@ -33,7 +33,7 @@
     <distributionManagement>
         <repository>
             <id>bintray</id>
-            <url>https://api.bintray.com/maven/bduisenov/releases/fn</url>
+            <url>https://api.bintray.com/maven/bduisenov/releases/fn;publish=1</url>
         </repository>
     </distributionManagement>
 
