@@ -49,15 +49,9 @@
 
     <distributionManagement>
         <repository>
-            <id>deployment</id>
-            <name>Internal Releases</name>
-            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2</url>
+            <id>bintray</id>
+            <url>https://api.bintray.com/maven/bduisenov/releases/fn;publish=1</url>
         </repository>
-        <snapshotRepository>
-            <id>deployment</id>
-            <name>Internal Releases</name>
-            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-        </snapshotRepository>
     </distributionManagement>
 
     <dependencies>
@@ -112,7 +106,7 @@
                             <execution>
                                 <id>attach-sources</id>
                                 <goals>
-                                    <goal>jar</goal>
+                                    <goal>jar-no-fork</goal>
                                 </goals>
                             </execution>
                         </executions>
@@ -120,6 +114,9 @@
                     <plugin>
                         <artifactId>maven-javadoc-plugin</artifactId>
                         <version>3.0.1</version>
+                        <configuration>
+                            <additionalJOption>-Xdoclint:none</additionalJOption>
+                        </configuration>
                         <executions>
                             <execution>
                                 <id>attach-javadocs</id>
