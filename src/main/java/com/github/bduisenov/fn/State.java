@@ -12,18 +12,13 @@ import static io.vavr.Function1.identity;
 /**
  * The State Monad represents a computation that threads a piece of state
  * through each step.
+ * The state transitions from a value of type `SA` to a value of type `SB`.
  *
  * @param <SA>
+ * @param <SB>
  * @param <A>
  */
 public class State<SA, SB, A> {
-
-    // type
-    public static class StateT<S, A> extends State<S, S, A> {
-        public StateT(Function1<S, Tuple2<S, A>> runState) {
-            super(runState);
-        }
-    }
 
     private final Function1<SA, Tuple2<SB, A>> runState;
 
@@ -34,6 +29,10 @@ public class State<SA, SB, A> {
      * @param runState
      */
     public State(Function1<SA, Tuple2<SB, A>> runState) {
+        if (runState == null) {
+            throw new NullPointerException("runState must be specified");
+        }
+
         this.runState = runState;
     }
 
@@ -140,8 +139,8 @@ public class State<SA, SB, A> {
     }
 
     // Updates the state with the result of executing the given function.
-    public static <S> State<S, S, Void> modify(Function1<S, S> f) {
-        return new State<>(s -> Tuple(f.apply(s), null));
+    public static <SA, SB> State<SA, SB, Void> modify(Function1<SA, SB> f) {
+        return new State<>(sa -> Tuple(f.apply(sa), null));
     }
 
     @SuppressWarnings("unchecked")
